@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker 'maven:3.3.9' }
+    agent any
     environment {
         SOME_ENV_VAR = 'some env var'
     }
