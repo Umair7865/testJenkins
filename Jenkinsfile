@@ -4,6 +4,11 @@ pipeline {
         SOME_ENV_VAR = 'some env var'
     }
     stages {
+        stage('Check') {
+            steps {
+                input 'Do you want to input something?'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'echo "Building"'
