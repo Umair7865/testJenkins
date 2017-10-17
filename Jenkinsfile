@@ -4,14 +4,24 @@ pipeline {
         SOME_ENV_VAR = 'some env var'
     }
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'echo "Hello World"'
+                sh 'echo "Building"'
                 sh 'printenv'
                 sh '''
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'echo "Running tests..."'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'echo "Deploying..."'
             }
         }
     }
