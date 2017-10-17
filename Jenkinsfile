@@ -1,9 +1,13 @@
 pipeline {
-    agent { docker 'maven:3.3.3' }
+    agent { docker 'maven:3.3.9' }
+    environment {
+        SOME_ENV_VAR = 'some env var'
+    }
     stages {
         stage('build') {
             steps {
                 sh 'echo "Hello World"'
+                sh 'printenv'
                 sh '''
                     echo "Multiline shell steps works too"
                     ls -lah
