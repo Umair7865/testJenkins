@@ -15,8 +15,10 @@ def deployLocally() {
         parameters: [string(defaultValue: '~/work/test_production_deploy/', description: 'Root path to install project', name: 'localInstallationPath')]
 
         sh "cp -rf ${env.WORKSPACE}/* ${deployDestinationPath}"
-        sh "cd ${deployDestinationPath}"
-        sh "unzip hybris-all-${selectedEnvironment}.zip"
+        sh "cd ${deployDestinationPath}src"
+        def res = sh returnStdout: true, script: 'java Main'
+        echo res
+        //sh "unzip hybris-all-${selectedEnvironment}.zip"
 }
 
 
