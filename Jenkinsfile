@@ -16,8 +16,10 @@ def deployLocally() {
 
         sh "cp -rf ${env.WORKSPACE}/* ${deployDestinationPath}"
         sh "cd ${deployDestinationPath}src"
-        def res = sh returnStdout: true, script: 'java Main'
-        echo res
+        dir(${deployDestinationPath}src) {
+            def res = sh returnStdout: true, script: 'java Main'
+            echo res
+        }
         //sh "unzip hybris-all-${selectedEnvironment}.zip"
 }
 
