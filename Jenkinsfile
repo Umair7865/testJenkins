@@ -10,13 +10,13 @@ def credentials = [
 def reportingMailOnError = 'admin@example.com'//TODO
 
 def deployLocally() {
-deployDestinationPath = input message: 'Specify absolute path to you local installation',
-        ok: 'Continue'
-        parameters: [string(defaultValue: '~/work/test_production_deploy/', description: '', name: 'localInstallationPath')]
+    def deployDestinationPath = input message: 'Specify absolute path to you local installation',
+        ok: 'Continue',
+        parameters: [string(defaultValue: '~/work/test_production_deploy/', description: 'Root path to install project', name: 'localInstallationPath')]
 
-                sh "cp -rf ${env.WORKSPACE}/* ${deployDestinationPath}"
-                sh "cd ${deployDestinationPath}"
-                sh "unzip hybris-all-${selectedEnvironment}.zip"
+        sh "cp -rf ${env.WORKSPACE}/* ${deployDestinationPath}"
+        sh "cd ${deployDestinationPath}"
+        sh "unzip hybris-all-${selectedEnvironment}.zip"
 }
 
 
@@ -53,12 +53,11 @@ node {
             selectedEnvironment = input id: 'EnvironmentSpecification', message: 'What environment do you want to deploy', ok: 'Continue', parameters: [choice(choices: choises, description: 'Target environment to be deployed to', name: 'selectedEnvironment')]
             //sh "ant package -Dbuild.environment=${selectedEvironment}"
 
-            def deployDestinationPath = environments[selectedEnvironment]
-
             if (selectedEnvironment == 'local') {
                 deployLocally()
             } else {
                 //TODO
+                def deployDestinationPath = environments[selectedEnvironment]
                 /*withCredentials([usernameColonPassword(credentialsId: 'a82f0790-25e1-452b-bf27-0990169cc0a8', variable: 'srvCred')]) {
                     sh "scp -r ${env.WORKSPACE} "
                     sh "ssh ${srvCred}@"+environments[selectedEnvironment]
