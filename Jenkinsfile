@@ -16,7 +16,7 @@ def deployLocally() {
 
         sh "cp -rf ${env.WORKSPACE}/* ${deployDestinationPath}"
         sh "cd ${deployDestinationPath}src"
-        dir(${deployDestinationPath}src) {
+        dir("${deployDestinationPath}src") {
             def res = sh returnStdout: true, script: 'java Main'
             echo res
         }
