@@ -15,6 +15,8 @@ pipeline {
                 sh 'printenv'
                 sh '''
                     echo "Multiline shell steps works too"
+                    pwd
+                    id
                     ls -lah
                 '''
             }
